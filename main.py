@@ -1,4 +1,5 @@
 import json
+import pandas as pd
 from messageparser import MessageParser
 #read client keys from json file
 secrets_file_path = "Keys/secrets.json"
@@ -23,6 +24,7 @@ except json.JSONDecodeError as e:
 
 parser = MessageParser(client_id,client_secret,access_token,api_base_url)
 messages = parser.returnmessages("DonaldTrump")
+print(messages)
 
 
 
