@@ -1,6 +1,7 @@
 import json
 import pandas as pd
-from messageparser import MessageParser
+from mastodonpostman import MastodonPostman
+from messagecleaner import MessageCleaner
 #read client keys from json file
 secrets_file_path = "Keys/secrets.json"
 
@@ -22,9 +23,12 @@ except KeyError:
 except json.JSONDecodeError as e:
     print(f"Error parsing JSON: {str(e)}")
 
-parser = MessageParser(client_id,client_secret,access_token,api_base_url)
-messages = parser.returnmessages("DonaldTrump")
-print(messages)
+postman = MastodonPostman(client_id,client_secret,access_token,api_base_url)
+messages = postman.returnmessages("DonaldTrump")
+message_cleaner = MessageCleaner()
+messages_cleaned = message_cleaner.returnmessages(messages)
+#print(messages_cleaned)
+
 
 
 
