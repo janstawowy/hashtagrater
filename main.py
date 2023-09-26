@@ -3,6 +3,9 @@ import pandas as pd
 from mastodonpostman import MastodonPostman
 from messagecleaner import MessageCleaner
 from jsonreader import JsonReader
+from analyser import SentimentAnalyser
+
+pd.set_option('display.expand_frame_repr', False)
 
 #read client keys from json file
 secrets_file_path = "Keys/secrets.json"
@@ -20,7 +23,9 @@ postman = MastodonPostman(client_id,client_secret,access_token,api_base_url)
 messages = postman.returnmessages("DonaldTrump")
 message_cleaner = MessageCleaner()
 messages_cleaned = message_cleaner.returnmessages(messages)
-print(messages_cleaned)
+analyser = SentimentAnalyser(messages_cleaned)
+sentiment = analyser.analyze_sentiment("text")
+print(sentiment)
 
 
 

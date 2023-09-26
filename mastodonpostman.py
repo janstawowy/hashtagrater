@@ -18,6 +18,5 @@ class MastodonPostman:
 
         # Fetch posts with the hashtag
         hashtag_posts = self.mastodon.timeline_hashtag(hashtag)
-        print(hashtag_posts)
         self.posts = [post["content"] for post in hashtag_posts]
         return self.posts
