@@ -11,7 +11,7 @@ class DataProcessor:
     def process_data(self,column_name):
         #print(self.df[column_name])
         self.df = self.df.dropna(axis=0)
-        #print(self.df.info())
+        self.df = self.df.reset_index(drop=True)
         vect = TfidfVectorizer(stop_words=ENGLISH_STOP_WORDS, ngram_range=(1, 2), max_features=200,token_pattern=r'\b[^\d\W][^\d\W]+\b').fit(self.df[column_name])
 
         X = vect.transform(self.df[column_name])
