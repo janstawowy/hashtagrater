@@ -4,8 +4,10 @@ from mastodonpostman import MastodonPostman
 from messagecleaner import MessageCleaner
 from jsonreader import JsonReader
 from analyser import SentimentAnalyser
+from pyexcel_ods import save_data
 
 pd.set_option('display.expand_frame_repr', False)
+ods_file_path = 'data/output.ods'
 
 #read client keys from json file
 secrets_file_path = "Keys/secrets.json"
@@ -24,9 +26,16 @@ messages = postman.returnmessages("DonaldTrump")
 message_cleaner = MessageCleaner()
 messages_cleaned = message_cleaner.returnmessages(messages)
 analyser = SentimentAnalyser(messages_cleaned)
-sentiment = analyser.analyze_sentiment("text")
+sentiment = analyser.analyze_sentiment_textblob("text")
+sentiment = analyser.analyze_sentiment_vader("text")
 print(sentiment)
 
+#save data
+# Convert the DataFrame to a dictionary
+df_dict = {'Sheet1': sentiment.to_dict(orient='split')['data']}
+
+# Save the data to the ODS file
+save_data(ods_file_path, df_dict)
 
 
 
