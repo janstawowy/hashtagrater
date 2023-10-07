@@ -7,7 +7,7 @@ import joblib
 import h5py
 import os
 path_to_data = "./data/Twitter_Data.csv"
-hdf5_filename = './model/your_model_filename.h5'
+model_filename = './model/post_rater.pkl'
 df = pd.read_csv(path_to_data)
 
 #print(df.head())
@@ -16,7 +16,8 @@ df = pd.read_csv(path_to_data)
 #print(df.info())
 #print(df.describe())
 processor = DataProcessor(df)
-data_processed = processor.process_data("clean_text")
+processor.preprocess_data()
+data_processed = processor.vectorize_data("clean_text")
 print(data_processed.info())
 print(data_processed.head())
 print(data_processed.describe())
@@ -28,8 +29,10 @@ X = data_processed.drop('category', axis=1)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=456)
 
 # Train a logistic regression
-"""
-log_reg = LogisticRegression().fit(X_train, y_train)
+
+log_reg = LogisticRegression(max_iter=200,solver='liblinear',penalty = 'l1', C=0.3)
+print("training the model...")
+log_reg.fit(X_train, y_train)
 # Predict the labels
 y_predicted = log_reg.predict(X_test)
 
@@ -38,13 +41,7 @@ print('Accuracy on the test set: ', accuracy_score(y_predicted, y_test))
 print(confusion_matrix(y_test, y_predicted)/len(y_test))
 
 # Save the model to disk using joblib
-joblib.dump(log_reg, 'temp_model.pkl')
+joblib.dump(log_reg, model_filename)
 
-# Create an HDF5 file
-with h5py.File(hdf5_filename, 'w') as hf:
-    # Store the model in the HDF5 file
-    hf.create_dataset('model', data=open('temp_model.pkl', 'rb').read())
 
-# Remove the temporary joblib model file
-os.remove('temp_model.pkl')"""
 
