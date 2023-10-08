@@ -1,12 +1,10 @@
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer, ENGLISH_STOP_WORDS
+import joblib
+
+vectorizer_filename = './model/tfidf_vectorizer.pkl'
 
 
-
-def lemmatize_text(text):
-    doc = nlp(text)
-    lemmatized_text = " ".join([token.lemma_ for token in doc])
-    return lemmatized_text
 class DataProcessor:
 
     def __init__(self,dataframe):
@@ -27,6 +25,7 @@ class DataProcessor:
 
         vect = TfidfVectorizer(stop_words=ENGLISH_STOP_WORDS, ngram_range=(1, 3), max_features=3000,token_pattern=r'\b[^\d\W][^\d\W]+\b', max_df=0.7)
         vect.fit(self.df_processed[column_name])
+        joblib.dump(vect, vectorizer_filename)
         X = vect.transform(self.df_processed[column_name])
         reviews_transformed = pd.DataFrame(X.toarray(), columns=vect.get_feature_names())
         reviews_transformed["category"] = self.df_processed.category
