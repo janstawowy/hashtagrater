@@ -28,7 +28,8 @@ messages_cleaned = message_cleaner.returnmessages(messages)
 analyser = SentimentAnalyser(messages_cleaned)
 sentiment = analyser.analyze_sentiment_textblob("text")
 sentiment = analyser.analyze_sentiment_vader("text")
-print(sentiment)
+sentiment = analyser.analyze_sentiment_model("text")
+
 
 #save data
 # Convert the DataFrame to a dictionary
@@ -36,6 +37,8 @@ df_dict = {'Sheet1': sentiment.to_dict(orient='split')['data']}
 
 # Save the data to the ODS file
 save_data(ods_file_path, df_dict)
+
+
 
 
 
