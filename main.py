@@ -29,7 +29,7 @@ analyser = SentimentAnalyser(messages_cleaned)
 sentiment = analyser.analyze_sentiment_textblob("text")
 sentiment = analyser.analyze_sentiment_vader("text")
 sentiment = analyser.analyze_sentiment_model("text")
-
+final_verdict = analyser.final_verdict()
 
 #save data
 # Convert the DataFrame to a dictionary

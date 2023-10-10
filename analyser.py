@@ -80,4 +80,16 @@ class SentimentAnalyser:
 
         return self.dataframe
 
+    def final_verdict(self):
+        final_verdict = self.dataframe[['sentiment_textblob', 'sentiment_vader', 'sentiment_model']].mean(axis=1)
+        self.dataframe["verdict_mean"] = final_verdict
+        # Define the bin edges and labels
+        bin_edges = [-2, -0.6, -0.3, 0.3, 0.6,2]
+        bin_labels = ['Very Negative', 'Negative', 'Neutral', 'Positive', "Very Positive"]
+
+        # Use pd.cut() to categorize the values and assign labels
+        self.dataframe["final_verdict"] = pd.cut(final_verdict, bins=bin_edges, labels=bin_labels)
+
+        return self.dataframe
+
 
