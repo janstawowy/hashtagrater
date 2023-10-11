@@ -7,10 +7,10 @@ import joblib
 from sklearn.linear_model import LogisticRegression
 
 class SentimentAnalyser:
-    def __init__(self, dataframe):
+    def __init__(self, dataframe,config):
         self.dataframe = dataframe
-        self.model_file_path = 'model/post_rater.pkl'
-        self.vectorizer_file_path = 'model/tfidf_vectorizer.pkl'
+        self.model_file_path = config["model_file_path"]
+        self.vectorizer_file_path = config["vectorizer_file_path"]
         self.model ={}
         self.vectorizer = {}
 

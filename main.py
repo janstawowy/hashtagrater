@@ -10,10 +10,15 @@ from pyexcel_ods import save_data
 pd.set_option('display.expand_frame_repr', False)
 ods_file_path = 'data/output.ods'
 
+#read config file
+config_file_path = "./config.json"
+config = JsonReader(config_file_path).readjson()
+print(config)
 #read client keys from json file
 secrets_file_path = "Keys/secrets.json"
-secretsjson = JsonReader(secrets_file_path)
-secrets_data = secretsjson.readjson()
+secrets_data = JsonReader(secrets_file_path).readjson()
+
+
 
 # Access the client secret
 client_id = secrets_data["client_id"]
@@ -23,10 +28,10 @@ api_base_url = secrets_data["api_base_url"]
 
 
 postman = MastodonPostman(client_id,client_secret,access_token,api_base_url)
-messages = postman.returnmessages("DonaldTrump")
+messages = postman.returnmessages(config["hashtag"])
 message_cleaner = MessageCleaner()
 messages_cleaned = message_cleaner.returnmessages(messages)
-analyser = SentimentAnalyser(messages_cleaned)
+analyser = SentimentAnalyser(messages_cleaned,config)
 sentiment = analyser.analyze_sentiment_textblob("text")
 sentiment = analyser.analyze_sentiment_vader("text")
 sentiment = analyser.analyze_sentiment_model("text")
