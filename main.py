@@ -4,6 +4,7 @@ from mastodonpostman import MastodonPostman
 from messagecleaner import MessageCleaner
 from jsonreader import JsonReader
 from analyser import SentimentAnalyser
+from displayer import Displayer
 from pyexcel_ods import save_data
 
 pd.set_option('display.expand_frame_repr', False)
@@ -38,6 +39,8 @@ df_dict = {'Sheet1': sentiment.to_dict(orient='split')['data']}
 # Save the data to the ODS file
 save_data(ods_file_path, df_dict)
 
+displayer = Displayer(sentiment)
+displayer.display_analysis()
 
 
 
