@@ -1,4 +1,4 @@
-
+from datetime import datetime
 import pandas as pd
 from mastodonpostman import MastodonPostman
 from messagecleaner import MessageCleaner
@@ -39,13 +39,14 @@ final_verdict = analyser.final_verdict()
 
 #save data
 # Convert the DataFrame to a dictionary
-df_dict = {'Sheet1': sentiment.to_dict(orient='split')['data']}
+today_date = datetime.today().date().strftime('%d/%m/%Y')
+df_dict = {today_date: sentiment.to_dict(orient='split')['data']}
 
 # Save the data to the ODS file
 save_data(ods_file_path, df_dict)
 
 displayer = Displayer(sentiment)
-displayer.display_analysis()
+displayer.display_sentiment()
 
 
 

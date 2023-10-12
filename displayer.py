@@ -7,7 +7,7 @@ class Displayer:
     def __init__(self,dataframe):
         self.dataframe = dataframe
 
-    def display_analysis(self):
+    def display_sentiment(self):
         # Sample categorical data
         # Sample categorical data
         data = {'Category A': 15, 'Category B': 30, 'Category C': 20}
