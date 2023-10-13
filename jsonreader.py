@@ -6,7 +6,7 @@ class JsonReader:
         self.file_path = file_path
         self.data = {}
 
-    def readjson(self):
+    def read_json(self):
         try:
             # Read and parse the JSON file
             with open(self.file_path, "r") as json_file:
@@ -17,7 +17,5 @@ class JsonReader:
 
         except FileNotFoundError:
             print(f"File not found: {self.file_path}")
-        except KeyError:
-            print("The 'client_secret' key is missing in the JSON file.")
         except json.JSONDecodeError as e:
             print(f"Error parsing JSON: {str(e)}")

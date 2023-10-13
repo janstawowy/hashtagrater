@@ -1,5 +1,5 @@
 {
-    "hashtag": "DonaldTrump",
+    "hashtag": "Caturday",
     "model_file_path": "model/post_rater.pkl",
     "vectorizer_file_path": "model/tfidf_vectorizer.pkl"
 }

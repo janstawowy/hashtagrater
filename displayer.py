@@ -8,13 +8,6 @@ class Displayer:
         self.dataframe = dataframe
 
     def display_sentiment(self):
-        # Sample categorical data
-        # Sample categorical data
-        data = {'Category A': 15, 'Category B': 30, 'Category C': 20}
-
-        # Create a DataFrame from the data
-        df = pd.DataFrame(data.items(), columns=['Category', 'Count'])
-
         # Create an interactive pie chart with text labels
         result = self.dataframe.groupby('final_verdict')['text'].apply(lambda x: '<br>'.join(x)).reset_index().rename(columns={'text': 'concat_text'})
         self.dataframe = self.dataframe.merge(result, on='final_verdict', how='left')

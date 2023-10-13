@@ -12,11 +12,11 @@ ods_file_path = 'data/output.ods'
 
 #read config file
 config_file_path = "./config.json"
-config = JsonReader(config_file_path).readjson()
+config = JsonReader(config_file_path).read_json()
 print(config)
 #read client keys from json file
 secrets_file_path = "Keys/secrets.json"
-secrets_data = JsonReader(secrets_file_path).readjson()
+secrets_data = JsonReader(secrets_file_path).read_json()
 
 
 
@@ -28,9 +28,9 @@ api_base_url = secrets_data["api_base_url"]
 
 
 postman = MastodonPostman(client_id,client_secret,access_token,api_base_url)
-messages = postman.returnmessages(config["hashtag"])
+messages = postman.return_messages(config["hashtag"])
 message_cleaner = MessageCleaner()
-messages_cleaned = message_cleaner.returnmessages(messages)
+messages_cleaned = message_cleaner.return_messages(messages)
 analyser = SentimentAnalyser(messages_cleaned,config)
 sentiment = analyser.analyze_sentiment_textblob("text")
 sentiment = analyser.analyze_sentiment_vader("text")

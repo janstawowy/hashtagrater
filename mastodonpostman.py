@@ -14,7 +14,7 @@ class MastodonPostman:
         )
         self.posts = []
 
-    def returnmessages(self, hashtag):
+    def return_messages(self, hashtag):
 
         # Fetch posts with the hashtag
         hashtag_posts = self.mastodon.timeline_hashtag(hashtag)
